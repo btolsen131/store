@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from itsdangerous import Serializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
+from storeAPI.models import StoreItems
+from .serializers import StoreItemsSerializer
 
 @api_view(['GET'])
 def getRoute(request):
@@ -38,3 +42,14 @@ def getRoute(request):
         },
     ]
     return Response(routes)
+@api_view(['GET'])
+def getItems(request):
+    items = StoreItems.objects.all()
+    serializer = StoreItemsSerializer(items, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getItem(request, pk):
+    item = StoreItems.objects.get(id=pk)
+    serializer = StoreItemsSerializer(item, many=False)
+    return Response(serializer.data)
