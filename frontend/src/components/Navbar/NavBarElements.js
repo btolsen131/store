@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const NavLink = styled(Link)`
 color: black;
-font-size: 1.25rem;
+font-size: 1.15rem;
 display: flex;
 align-items: center;
 text-decoration: none;
