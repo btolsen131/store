@@ -8,13 +8,13 @@ const ItemPage = ({ match }) => {
 
   useEffect(()=>{
     getItem()
-  },[])
+  },[]);
 
   let getItem = async ()=>{
    let response = await fetch(`/api/items/${itemParams.id}`)
    let data = await response.json()
    setItem(data)
-  }
+  };
 
   return (
     <div>
