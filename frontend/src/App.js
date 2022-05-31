@@ -25,9 +25,9 @@ function App() {
           <Route path="/About/" exact element={<About/>} />
         </Routes>
         </div>  
-        <div className="AppFooter">
+        
         <Footer />
-        </div>
+        
       </div>
     </Router>
   );
