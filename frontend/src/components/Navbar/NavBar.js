@@ -1,7 +1,7 @@
 import React from 'react'
 import {BsCart3} from 'react-icons/bs'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Navbar, Container, NavDropdown, Nav } from 'react-bootstrap'
+import {Navbar, Container,  Nav } from 'react-bootstrap'
 import { NavLink } from './NavBarElements'
 
 const NavBar = () => {

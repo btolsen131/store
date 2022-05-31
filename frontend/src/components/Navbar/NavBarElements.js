@@ -6,6 +6,7 @@ color: black;
 font-size: 1.15rem;
 display: flex;
 align-items: center;
+justify-items:center;
 text-decoration: none;
 padding: 0 1rem;
 height: 100%;
