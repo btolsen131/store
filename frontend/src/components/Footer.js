@@ -4,7 +4,7 @@ import { BsLinkedin, BsGithub, BsReverseLayoutTextWindowReverse } from "react-ic
 const Footer = () => {
 const footerStyle ={
   color:'white',
-  backgroundColor:"gray",
+  backgroundColor:"rgb(111,145,150,80%)",
 };
 const linkStyle={
   color:'white',
