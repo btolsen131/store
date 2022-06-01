@@ -8,7 +8,7 @@ import ItemPage from './pages/ItemPage'
 import NavBar from './components/Navbar/NavBar.js'
 import About from './pages/About'
 import Home from './pages/Home'
-import Footer from './components/Footer'
+import Footer from './components/Footer/Footer'
 import React from 'react'
 
 function App() {
