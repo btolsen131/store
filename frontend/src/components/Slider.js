@@ -38,7 +38,7 @@ function Slider() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://staticg.sportskeeda.com/editor/2022/03/18160-16476816771680-1920.jpg"
+            src="https://talksport.com/wp-content/uploads/sites/5/2022/02/M298922.jpg?strip=all&w=960&quality=100"
             alt="Third slide"
           />
   
