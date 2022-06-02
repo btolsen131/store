@@ -42,6 +42,7 @@ def getRoute(request):
         },
     ]
     return Response(routes)
+    
 @api_view(['GET'])
 def getItems(request):
     items = StoreItems.objects.all()

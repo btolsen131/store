@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import ListItem from '../components/ListItem'
+import {Container} from 'react-bootstrap'
 
 const ItemsListPage = () => {
     let [items, setItems] = useState([])
@@ -18,11 +19,13 @@ const ItemsListPage = () => {
 
   return (
     <div>
-        <div className='items-list'>
+    <Container>
+        <div className='styles.grid'>
             {items.map((item, index) => 
             <ListItem key={index} item={item}/>
             )}
         </div>
+    </Container>
     </div>
   )
 }

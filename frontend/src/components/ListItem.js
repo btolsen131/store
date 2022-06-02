@@ -1,12 +1,26 @@
-import React from 'react'
+import React from 'react' 
 import { Link } from 'react-router-dom'
-
+import Figure from 'react-bootstrap/Figure'
 
 const ListItem = ({item}) => {
+  
   return (
-    <Link to={`/item/${item.id}`}>
-        <h3>{item.name}</h3>
-    </Link>
+    <div className="border rounded border-secondary m-2">
+    <Figure>
+      <Figure.Image
+      width={250}
+      height={180}
+      alt="failed to load product image"
+      src={item.image}/>
+      <Figure.Caption>
+        <span>{item.description}</span>
+        <p className='text-muted sm'>${item.price}</p>
+        <Link to={`/Item/${item.id}`} className="stretched-link text-muted text-decoration-none">Link to product</Link>
+      </Figure.Caption>
+    </Figure>
+    
+    
+    </div>
   )
 }
 
