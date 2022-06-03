@@ -1,25 +1,25 @@
 import React from 'react' 
 import { Link } from 'react-router-dom'
-import Figure from 'react-bootstrap/Figure'
+
+import { Button, Image, Item } from 'semantic-ui-react'
 
 const ListItem = ({item}) => {
   
   return (
-    <div className="border rounded border-secondary m-2">
-    <Figure>
-      <Figure.Image
-      width={250}
-      height={180}
-      alt="failed to load product image"
-      src={item.image}/>
-      <Figure.Caption>
-        <span>{item.description}</span>
-        <p className='text-muted sm'>${item.price}</p>
-        <Link to={`/Item/${item.id}`} className="stretched-link text-muted text-decoration-none">Link to product</Link>
-      </Figure.Caption>
-    </Figure>
-    
-    
+    <div className="m-2">
+    <Item>
+      <Item.Image size='small' src={item.image} />
+
+      <Item.Content verticalAlign='middle'>
+        <Item.Header>{item.name}</Item.Header>
+        <Item.Description>{item.description}</Item.Description>
+        <Item.Extra>
+          <Button>Add to cart</Button>
+        </Item.Extra>
+        <p>{item.id}</p>
+        <Link to={`/Item/${item.id}`} className="text-muted text-decoration-none">View Item</Link>
+      </Item.Content>
+    </Item>
     </div>
   )
 }

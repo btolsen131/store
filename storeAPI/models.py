@@ -4,7 +4,7 @@ from PIL import Image
 
 # Create your models here.
 CATEGORY_CHOICES = (
-    ('C', 'Shirt'),
+    ('C', 'Clothing'),
     ('A', 'Accessories'),
     ('L', 'Life Style')
 )
