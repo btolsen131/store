@@ -3,6 +3,12 @@ from PIL import Image
 
 
 # Create your models here.
+CATEGORY_CHOICES = (
+    ('C', 'Shirt'),
+    ('A', 'Accessories'),
+    ('L', 'Life Style')
+)
+
 class StoreItems(models.Model):
     name = models.CharField(max_length=20)
     price = models.DecimalField(max_digits= 10, decimal_places=2)
@@ -11,6 +17,8 @@ class StoreItems(models.Model):
     image = models.ImageField(default='default.png', upload_to='./product_pics')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=1, default='L')
+
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
