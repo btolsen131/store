@@ -10,7 +10,7 @@ const Footer = () =>{
             <Row>
                 <Col md={3} sm={6}>
                     <h4 className="text-center text-decoration-underline">About Us</h4>
-                        <ListGroup variant='flush' style={{backgroundColor:'(rgb(0,0,0,0%)'}}>
+                        <ListGroup variant='flush'>
                             <ListGroup.Item action ><NavLink to="/about">About</NavLink></ListGroup.Item>
                             <ListGroup.Item action ><NavLink to="#">Mission</NavLink></ListGroup.Item>
                             <ListGroup.Item action ><NavLink to="https://btolsen131.github.io/portfolio_website/assets/other_htmls/resumePage.html">Hire Me</NavLink></ListGroup.Item>
