@@ -3,17 +3,17 @@ from itsdangerous import Serializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from storeAPI.models import StoreItems, OrderItem, Order
 from .serializers import StoreItemsSerializer
 from django.utils import timezone
 
-
-    
-@api_view(['GET'])
-def getItems(request):
-    items = StoreItems.objects.all()
-    serializer = StoreItemsSerializer(items, many=True)
-    return Response(serializer.data)
+class ItemListView(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = StoreItemsSerializer
+    queryset = StoreItems.objects.all()
 
 @api_view(['GET'])
 def getItem(request, pk):
@@ -24,13 +24,15 @@ def getItem(request, pk):
 class AddToCartView(APIView):
     def post(self, request, *args, **kwargs):
         slug = request.data.get('slug', None)
-        variations = request.data.get('variations', [])
         if slug is None:
             return Response({"message": "Invalid request"}, status=HTTP_400_BAD_REQUEST)
 
-        item = get_object_or_404(Item, slug=slug)
-
-       
+        item = get_object_or_404(StoreItems, slug=slug)
+        order_item, created = OrderItem.objects.get_or_create(
+            item=item,
+            user=request.user,
+            ordered=False
+        )
         order_item_qs = OrderItem.objects.filter(
             item=item,
             user=request.user,
@@ -47,7 +49,7 @@ class AddToCartView(APIView):
                 user=request.user,
                 ordered=False
             )
-            order_item.item_variations.add(*variations)
+            
             order_item.save()
 
         order_qs = Order.objects.filter(user=request.user, ordered=False)

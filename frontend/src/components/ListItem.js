@@ -1,10 +1,11 @@
 import React from 'react' 
 import { Link } from 'react-router-dom'
-
-import { Button, Image, Item } from 'semantic-ui-react'
+import handleAddToCart from '../pages/ItemsListPage'
+import { Button, Item } from 'semantic-ui-react'
 
 const ListItem = ({item}) => {
   
+
   return (
     <div className="m-2">
     <Item>
@@ -12,9 +13,10 @@ const ListItem = ({item}) => {
 
       <Item.Content verticalAlign='middle'>
         <Item.Header>{item.name}</Item.Header>
+        <Item.Meta className="text-muted sm">{item.category}</Item.Meta>
         <Item.Description>{item.description}</Item.Description>
         <Item.Extra>
-          <Button>Add to cart</Button>
+          <Button onClick={() => this.handleAddToCart(item.slug)}>Add to cart</Button>
         </Item.Extra>
         <p>{item.id}</p>
         <Link to={`/Item/${item.id}`} className="text-muted text-decoration-none">View Item</Link>

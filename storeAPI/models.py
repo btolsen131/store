@@ -1,6 +1,9 @@
-from tkinter import CASCADE
 from django.db import models
 from PIL import Image
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.shortcuts import reverse
+
 
 # Create your models here.
 CATEGORY_CHOICES = (
@@ -18,7 +21,25 @@ class StoreItems(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=1, default='L')
+    slug = models.SlugField()
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("store-api/item", kwargs={
+            'slug': self.slug
+        })
+
+    def get_add_to_cart_url(self):
+        return reverse("core:add-to-cart", kwargs={
+            'slug': self.slug
+        })
+
+    def get_remove_from_cart_url(self):
+        return reverse("core:remove-from-cart", kwargs={
+            'slug': self.slug
+        })
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -34,7 +55,7 @@ class OrderItem(models.Model):
     item = models.ForeignKey(StoreItems, on_delete=models.CASCADE)
 
 class Order(models.Model):
-    #user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
     items = models.ManyToManyField(OrderItem)
     start_date = models.DateTimeField(auto_now_add=True)
@@ -74,7 +95,7 @@ ADDRESS_CHOICES = (
 )
 
 class Address(models.Model):
-    user = models.ForeignKey('User', on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     street_address= models.CharField(max_length=100)
     street_address2= models.CharField(max_length=100)
     city = models.CharField(max_length=100)

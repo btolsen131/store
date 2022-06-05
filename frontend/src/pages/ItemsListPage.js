@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import ListItem from '../components/ListItem'
-import { renderMatches } from 'react-router-dom'
+
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import {Segment, Message, Loader, Dimmer, Image, Container} from 'semantic-ui-react'
+import {authAxios} from '../utils';
+import { Button, Item } from 'semantic-ui-react'
 
-<Segment>
-      <Dimmer active inverted>
-        <Loader inverted>Loading</Loader>
-      </Dimmer>
-
-      <Image src='/images/wireframe/short-paragraph.png' />
-    </Segment>
 
 class ItemsListPage extends React.Component {
     
@@ -30,18 +25,19 @@ class ItemsListPage extends React.Component {
     })
   }
 
-  // let [items, setItems] = useState([])
-  //   useEffect(()=> {
-  //       getItems()
-  //   },[])
-
-  //   //function to ping API for list of store items from django backend
-  //   let getItems = async () => {
-  //      let response = await fetch('/api/items')
-  //      let data = await response.json()
-  //      console.log('DATA:', data)
-  //      setItems(data)
-  //   } 
+  handleAddToCart = slug =>{
+    this.setState ({loading: true});
+    authAxios
+      .post('/add-to-cart',{ slug })
+      .then(res => {
+        console.log(res.data)
+        this.props.refreshCart();
+        this.setState({ loading: false});
+      })
+      .catch(err => {
+        this.setState({ error: err, loading:false});
+      })
+  };
 
 render() {
   const {data, error, loading} = this.state;
@@ -61,12 +57,27 @@ render() {
           <Loader inverted>Loading</Loader>
         </Dimmer>
   
-        <Image src='/images/wireframe/short-paragraph.png' />
+        <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
       </Segment>
       )}
         <div>
-            {data.map((item, index) => 
-            <ListItem key={index} item={item}/>
+            {data.map((item) => {
+              return (
+              <Item key={item.id}>
+                <Item.Image size='small' src={item.image} />
+
+                <Item.Content verticalAlign='middle'>
+                  <Item.Header>{item.name}</Item.Header>
+                  <Item.Meta className="text-muted sm">{item.category}</Item.Meta>
+                  <Item.Description>{item.description}</Item.Description>
+                  <Item.Extra>
+                    <Button onClick={() => this.handleAddToCart(item.slug)}>Add to cart</Button>
+                  </Item.Extra>
+                  <Link to={`/Item/${item.id}`} className="text-muted text-decoration-none">View Item</Link>
+                </Item.Content>
+              </Item>
+              )
+            }
             )}
         </div>
     </Container>

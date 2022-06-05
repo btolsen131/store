@@ -11,7 +11,7 @@ function Slider() {
     };
   
     return (
-      <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel slide={false} activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item interval={8000}>
           <img
             className="d-block w-100"
