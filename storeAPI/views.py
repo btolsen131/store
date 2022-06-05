@@ -1,47 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from itsdangerous import Serializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from storeAPI.models import StoreItems
+from storeAPI.models import StoreItems, OrderItem, Order
 from .serializers import StoreItemsSerializer
+from django.utils import timezone
 
-@api_view(['GET'])
-def getRoute(request):
 
-    routes = [
-        {
-            'Endpoint': '/notes/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns an array of notes'
-        },
-        {
-            'Endpoint': '/notes/id',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns a single note object'
-        },
-        {
-            'Endpoint': '/notes/create/',
-            'method': 'POST',
-            'body': {'body': ""},
-            'description': 'Creates new note with data sent in post request'
-        },
-        {
-            'Endpoint': '/notes/id/update/',
-            'method': 'PUT',
-            'body': {'body': ""},
-            'description': 'Creates an existing note with data sent in post request'
-        },
-        {
-            'Endpoint': '/notes/id/delete/',
-            'method': 'DELETE',
-            'body': None,
-            'description': 'Deletes and exiting note'
-        },
-    ]
-    return Response(routes)
     
 @api_view(['GET'])
 def getItems(request):
@@ -64,19 +30,12 @@ class AddToCartView(APIView):
 
         item = get_object_or_404(Item, slug=slug)
 
-        minimum_variation_count = Variation.objects.filter(item=item).count()
-        if len(variations) < minimum_variation_count:
-            return Response({"message": "Please specify the required variation types"}, status=HTTP_400_BAD_REQUEST)
-
+       
         order_item_qs = OrderItem.objects.filter(
             item=item,
             user=request.user,
             ordered=False
         )
-        for v in variations:
-            order_item_qs = order_item_qs.filter(
-                Q(item_variations__exact=v)
-            )
 
         if order_item_qs.exists():
             order_item = order_item_qs.first()

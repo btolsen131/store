@@ -1,6 +1,6 @@
+from tkinter import CASCADE
 from django.db import models
 from PIL import Image
-
 
 # Create your models here.
 CATEGORY_CHOICES = (
@@ -34,6 +34,7 @@ class OrderItem(models.Model):
     item = models.ForeignKey(StoreItems, on_delete=models.CASCADE)
 
 class Order(models.Model):
+    #user = models.ForeignKey('User', on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
     items = models.ManyToManyField(OrderItem)
     start_date = models.DateTimeField(auto_now_add=True)
@@ -54,9 +55,6 @@ class Order(models.Model):
     (Failed checkout)
     3. Payment
     (Preprocessing, processing, packaging etc.)
-    4. Being delivered
-    5. Received
-    6. Refunds
     '''
 
     def __str__(self):
@@ -76,6 +74,7 @@ ADDRESS_CHOICES = (
 )
 
 class Address(models.Model):
+    user = models.ForeignKey('User', on_delete=CASCADE)
     street_address= models.CharField(max_length=100)
     street_address2= models.CharField(max_length=100)
     city = models.CharField(max_length=100)
