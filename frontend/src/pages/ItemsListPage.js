@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import {Segment, Message, Loader, Dimmer, Image, Container} from 'semantic-ui-react'
