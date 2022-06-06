@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Signup from "./components/Signup";
-import HomepageLayout from "./components/Home";
 import './App.css';
 import ItemsListPage from './pages/ItemsListPage.js'
 import ItemPage from './pages/ItemPage'
