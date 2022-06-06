@@ -26,8 +26,8 @@ class ItemsListPage extends React.Component {
 
   handleAddToCart = slug =>{
     this.setState ({loading: true});
-    authAxios
-      .post('/add-to-cart',{ slug })
+    axios
+      .post('/api/add-to-cart',{ slug })
       .then(res => {
         console.log(res.data)
         this.props.refreshCart();

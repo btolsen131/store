@@ -8,7 +8,7 @@ urlpatterns = [
     
     path('items/', ItemListView.as_view(), name='items'),
     path('items/<int:pk>/', views.getItem, name='item'),
-    path('add-to-cart/', AddToCartView.as_view(), name='add-to-cart'),
+    path('add-to-cart', AddToCartView.as_view(), name='add-to-cart'),
 
 ]
 
