@@ -12,6 +12,7 @@ import Home from './pages/Home'
 import Footer from './components/Footer/Footer'
 import React from 'react'
 import Cart from './pages/Cart'
+import BaseRouter from './routes';
 
 function App() {
   const [cart, setCart] = useState({});
@@ -26,13 +27,7 @@ function App() {
       <div className="AppMain">
         <NavBar />
         <div className='container mt-3'>
-        <Routes>
-          <Route path="/" exact element={<Home/>}/>
-          <Route path='/Shop' exact element={<ItemsListPage/>}/>
-          <Route path='/Item/<:id>' element={<ItemPage />} />
-          <Route path="/About/" exact element={<About/>} />
-          <Route path="/cart/" exact element={<Cart/>} />
-        </Routes>
+       <BaseRouter />
         </div>  
         
         <Footer />

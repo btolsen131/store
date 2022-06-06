@@ -3,12 +3,15 @@ import {BsCart3, BsPeople} from 'react-icons/bs'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Navbar, Container,  Nav } from 'react-bootstrap'
 import { NavLink } from './NavBarElements'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const NavBar = () => {
   return (
 <Navbar bg="secondary" variant='dark' expand="lg">
   <Container>
-    <Navbar.Brand href="/">Brian's Shop</Navbar.Brand>
+    <LinkContainer to='/'>
+        <Navbar.Brand>Brian's Shop</Navbar.Brand>
+    </LinkContainer>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">

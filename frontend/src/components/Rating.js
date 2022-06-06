@@ -1,62 +1,35 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs'
 
-const Rating = ({ value, text, color }) => {
+function renderStars(value, checkValue){
+    if (value >= checkValue){
+        return <BsStarFill color={'#f8e825'}/>
+    } else if (value >= (checkValue-0.5)){
+        return <BsStarHalf />
+    } else {
+        return <BsStar />
+    }
+};
+
+const Rating = ({ value, text}) => {
   return (
     <div className='rating'>
         <span>
-            <i style={{ color }} className={
-                value >= 1
-                ? 'fas fa-star'
-                : value >= 0.5
-                ? 'fas fa-star-half-alt'
-                : 'far fa-star'
-            }>
-
-            </i>
+            {renderStars(value, 1)}
+        
         </span>
         <span>
-            <i style={{ color }} className={
-                value >= 2
-                ? 'fas fa-star'
-                : value >= 1.5
-                ? 'fas fa-star-half-alt'
-                : 'far fa-star'
-            }>
-
-            </i>
+         {renderStars(value, 2)}
         </span>
         <span>
-            <i style={{ color }} className={
-                value >= 3
-                ? 'fas fa-star'
-                : value >= 2.5
-                ? 'fas fa-star-half-alt'
-                : 'far fa-star'
-            }>
-
-            </i>
+           {renderStars(value, 3)}
         </span>
         <span>
-            <i style={{ color }} className={
-                value >= 4
-                ? 'fas fa-star'
-                : value >= 3.5
-                ? 'fas fa-star-half-alt'
-                : 'far fa-star'
-            }>
-
-            </i>
+            {renderStars(value,4)}
         </span>
         <span>
-            <i style={{ color }} className={
-                value >= 5
-                ? 'fas fa-star'
-                : value >= 4.5
-                ? 'fas fa-star-half-alt'
-                : 'far fa-star'
-            }>
-
-            </i>
+            {renderStars(value, 5)}
         </span>
         <span>{text && text}</span>
     </div>
