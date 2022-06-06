@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import {Row, Col} from 'react-bootstrap'
 import axios from 'axios'
 import {Segment, Message, Loader, Dimmer, Image, Container} from 'semantic-ui-react'
 import {authAxios} from '../utils';
 import { Button, Item } from 'semantic-ui-react'
-
+import Product from '../components/Product'
 
 class ItemsListPage extends React.Component {
   
@@ -23,20 +24,6 @@ class ItemsListPage extends React.Component {
       this.setState({error: err, loading:false});
     })
   }
-
-  handleAddToCart = slug =>{
-    this.setState ({loading: true});
-    axios
-      .post('/api/add-to-cart',{ slug })
-      .then(res => {
-        console.log(res.data)
-        this.props.refreshCart();
-        this.setState({ loading: false});
-      })
-      .catch(err => {
-        this.setState({ error: err, loading:false});
-      })
-  };
 
 render() {
   const {data, error, loading} = this.state;
@@ -60,24 +47,16 @@ render() {
       </Segment>
       )}
         <div>
+          <Row>
             {data.map((item) => {
               return (
-              <Item key={item.id}>
-                <Item.Image size='small' src={item.image} />
-
-                <Item.Content verticalAlign='middle'>
-                  <Item.Header>{item.name}</Item.Header>
-                  <Item.Meta className="text-muted sm">{item.category}</Item.Meta>
-                  <Item.Description>{item.description}</Item.Description>
-                  <Item.Extra>
-                    <Button onClick={() => this.handleAddToCart(item.slug)}>Add to cart</Button>
-                  </Item.Extra>
-                  <Link to={`/Item/${item.id}`} className="text-muted text-decoration-none">View Item</Link>
-                </Item.Content>
-              </Item>
+              <Col key={item.id} smm={12} md={6} lg={4}>
+                <Product item={item} />
+              </Col>
               )
             }
             )}
+          </Row>
         </div>
     </Container>
     </div>
