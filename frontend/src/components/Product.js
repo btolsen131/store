@@ -1,7 +1,6 @@
 import React from 'react' 
-import { Link } from 'react-router-dom'
-import { Button, Item } from 'semantic-ui-react'
 import { Card } from 'react-bootstrap'
+import  Rating  from './Rating'
 
 const Product = ({item}) => {
   
@@ -17,6 +16,11 @@ const Product = ({item}) => {
             <strong>{item.name}</strong>
           </Card.Title>
         </a>
+        <Card.Text as="div">
+          <div className="my-3">
+            <Rating value={item.rating} text={`${item.numReviews} reviews`} color={'#f8e825'}/>
+          </div>
+        </Card.Text>
         <Card.Text as="h3">
           <div className="my-3">
             ${item.price}
