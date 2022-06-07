@@ -1,12 +1,11 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs'
 
 function renderStars(value, checkValue){
     if (value >= checkValue){
         return <BsStarFill color={'#f8e825'}/>
     } else if (value >= (checkValue-0.5)){
-        return <BsStarHalf />
+        return <BsStarHalf color={'#f8e825'}/>
     } else {
         return <BsStar />
     }

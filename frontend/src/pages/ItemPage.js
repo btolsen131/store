@@ -10,7 +10,7 @@ const ItemPage = ({ match }) => {
   console.log(item)
   return (
     <div>
-      <Link to='/' className="btn btn-light my-3">Go Back</Link>
+      <Link to='/Shop' className="btn btn-light my-3">Go Back</Link>
       <Row>
         <Col md={6}>
           <Image src={item.image} alt={item.name} fluid/>
