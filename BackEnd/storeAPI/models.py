@@ -6,110 +6,19 @@ from django.shortcuts import reverse
 
 
 # Create your models here.
-CATEGORY_CHOICES = (
-    ('C', 'Clothing'),
-    ('A', 'Accessories'),
-    ('L', 'Life Style')
-)
 
 class StoreItems(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=20)
+    brand = models.CharField(max_length=200, null=True, blank=True)
     price = models.DecimalField(max_digits= 10, decimal_places=2)
-    color = models.CharField(max_length=20, blank=True)
+    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(default='default.png', upload_to='./product_pics')
-    updated = models.DateTimeField(auto_now=True)
+    numReviews = models.IntegerField(null=True, blank=True, default=0)
+    countInStock = models.IntegerField(null=True, blank=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=1, default='L')
-    slug = models.SlugField()
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("store-api/item", kwargs={
-            'slug': self.slug
-        })
-
-    def get_add_to_cart_url(self):
-        return reverse("core:add-to-cart", kwargs={
-            'slug': self.slug
-        })
-
-    def get_remove_from_cart_url(self):
-        return reverse("core:remove-from-cart", kwargs={
-            'slug': self.slug
-        })
+    category = models.CharField(max_length=20)
+    _id = models.AutoField(primary_key=True, editable=False)
     
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
-
-class OrderItem(models.Model):
-    item = models.ForeignKey(StoreItems, on_delete=models.CASCADE)
-
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ref_code = models.CharField(max_length=20, blank=True, null=True)
-    items = models.ManyToManyField(OrderItem)
-    start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
-    shipping_address = models.ForeignKey('Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
-    billing_address = models.ForeignKey('Address', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
-    payment = models.ForeignKey('Payment', on_delete=models.SET_NULL, blank=True, null=True)
-    coupon = models.ForeignKey('Coupon', on_delete=models.SET_NULL, blank=True, null=True)
-    being_delivered = models.BooleanField(default=False)
-    received = models.BooleanField(default=False)
-    refund_requested = models.BooleanField(default=False)
-    refund_granted = models.BooleanField(default=False)
-
-    '''
-    1. Item added to cart
-    2. Adding a billing address
-    (Failed checkout)
-    3. Payment
-    (Preprocessing, processing, packaging etc.)
-    '''
-
-    def __str__(self):
-        return self.user.username
-
-    def get_total(self):
-        total = 0
-        for order_item in self.items.all():
-            total += order_item.get_final_price()
-        if self.coupon:
-            total -= self.coupon.amount
-        return total
-
-ADDRESS_CHOICES = (
-    ('B', 'Billing'),
-    ('S', 'Shipping'),
-)
-
-class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    street_address= models.CharField(max_length=100)
-    street_address2= models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    zip_code = models.IntegerField()
-    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-
-class Payment(models.Model):
-    stripe_charge_id = models.CharField(max_length=50)
-    amount = models.FloatField()
-    charge_time = models.DateTimeField(auto_now_add=True)
-
-class Coupon(models.Model):
-    code = models.CharField(max_length=15)
-    amount = models.FloatField()
-
-    def __str__(self):
-        return self.code
