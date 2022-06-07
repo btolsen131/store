@@ -23,10 +23,40 @@ const ItemPage = ({ match }) => {
             <ListGroup.Item>
               <Rating value={item.rating} text={`${item.numReviews} reviews`} />
             </ListGroup.Item>
-
+            <ListGroup.Item>
+              Price: ${item.price}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Description: {item.description}
+            </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col>
+        <Col md={3}>
+          <Card>
+            <ListGroup variant='flush'>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Price:</Col>
+                  <Col>
+                    <strong>${item.price}</strong>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Status:</Col>
+                  <Col>
+                    {item.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button className="btn-block" disabled={item.countInStock === 0} type='button'>Add to Cart</Button>
+              </ListGroup.Item>
+
+            </ListGroup>
+          </Card>
+
         </Col>
       </Row>
     </div>
