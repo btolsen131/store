@@ -6,13 +6,13 @@ import Rating from '../components/Rating'
 import axios from 'axios'
 
 const ItemPage = ({ match }) => {
-  console.log(match.id)
-  console.log(match)
+  const { id } = useParams()
+  
   const [item, setItem] = useState([])
   useEffect(() =>{
     async function fetchItem(){
      
-      const {data} = await axios.get(`/api/products/${this.props.match.params.id}`)
+      const {data} = await axios.get(`/api/items/${id}`)
       setItem(data)
     }
     fetchItem()

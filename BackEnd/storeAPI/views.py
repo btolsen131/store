@@ -18,7 +18,7 @@ def getItems(request):
 
 @api_view(["GET"])
 def getItem(request, pk):
-    product = StoreItems.objects.get(_id=pk).first()
+    product = StoreItems.objects.get(_id=pk)
     serializer = StoreItemsSerializer(product, many=False)
     return Response(serializer.data)
 
