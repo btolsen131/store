@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from itsdangerous import Serializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import StoreItems
+from .serializers import StoreItemsSerializer
 
 @api_view(["GET"])
 def getRoutes(resquest):
@@ -9,17 +12,15 @@ def getRoutes(resquest):
 
 @api_view(["GET"])
 def getItems(request):
-    return Response(products)
+    items = StoreItems.objects.all()
+    serializer = StoreItemsSerializer(items, many=True)
+    return Response(serializer.data)
 
 @api_view(["GET"])
 def getItem(request, pk):
-    product = None
-    for i in products:
-        if i['_id'] == pk:
-            product = i
-            break
-
-    return Response(product)
+    product = StoreItems.objects.get(_id=pk).first()
+    serializer = StoreItemsSerializer(product, many=False)
+    return Response(serializer.data)
 
 
 

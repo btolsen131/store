@@ -22,7 +22,7 @@ function ItemsListPage() {
           <Row>
             {items.map((item) => {
               return (
-              <Col key={item.id} smm={12} md={6} lg={4}>
+              <Col key={item._id} smm={12} md={6} lg={4}>
                 <Product item={item} />
               </Col>
               )
