@@ -9,17 +9,20 @@ import { addToCart } from '../actions/cartActions'
 const Cart = ({match, location, history }) => {
 
     const { id } = useParams()
-    const [searchParams] = useSearchParams()
-    console.log(searchParams)
+    const [searchParams ] = useSearchParams()
+    let qtyToAdd = searchParams.get('qty')
     const qty = 1
-
+    console.log(qtyToAdd)
     const dispatch = useDispatch()
 
+    const cart = useSelector(state => state.cart)
+    const {cartItems } = cart
+    console.log('cartItems', cartItems)
     useEffect(() =>{
         if(id){
-            dispatch(addToCart(id, qty))
+            dispatch(addToCart(id, qtyToAdd))
         }
-    }, [dispatch, id, qty])
+    }, [dispatch, id, qtyToAdd])
 
   return (
     <div>

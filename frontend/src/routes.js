@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 
 import './App.css';
 import ItemsListPage from './pages/ItemsListPage.js'
@@ -19,10 +19,11 @@ const BaseRouter = () => (
           <Route path='/Item/:id' element={<ItemPage />} />
           <Route path="/About/" exact element={<About/>} />
             
-            <Route path="/Cart/">
-              <Route index element={<Cart/>} />
-              <Route path=":id?" element={<Cart />} />
-            </Route>
+            
+                <Route path= "/Cart" element={<Cart/>} />
+                <Route path="/Cart/:id" element={<Cart />} />
+                
+            
           
      </Routes>
      
