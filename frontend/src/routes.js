@@ -18,7 +18,11 @@ const BaseRouter = () => (
           <Route path='/Shop' exact element={<ItemsListPage/>}/>
           <Route path='/Item/:id' element={<ItemPage />} />
           <Route path="/About/" exact element={<About/>} />
-          <Route path="/Cart/" exact element={<Cart/>} />
+            
+            <Route path="/Cart/">
+              <Route index element={<Cart/>} />
+              <Route path=":id?" element={<Cart />} />
+            </Route>
           
      </Routes>
      

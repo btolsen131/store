@@ -1,33 +1,31 @@
-import React from 'react'
-import styled from 'styled-components';
-import { Button, Col, Row, Container } from 'react-bootstrap';
+import React, {useEffect} from 'react';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Col, Row, ListGroup, Image, Form, Card } from 'react-bootstrap';
+import { Message } from '../components/Message'
+import { addToCart } from '../actions/cartActions'
 
-const Title = styled.h1`
-    font-weight: 300;
-    text-align:center;
-`;
 
-const Cart = () => {
+const Cart = ({match, location, history }) => {
+
+    const { id } = useParams()
+    const [searchParams] = useSearchParams()
+    console.log(searchParams)
+    const qty = 1
+
+    const dispatch = useDispatch()
+
+    useEffect(() =>{
+        if(id){
+            dispatch(addToCart(id, qty))
+        }
+    }, [dispatch, id, qty])
+
   return (
     <div>
-    <Container>
-        <Row style={{display:'flex',alignItems:'center', justifyContent:'center'}}>
-            <Col style={{justifyContent:'center', display:'flex'}}>
-                <Button variant="outline-primary">Continue Shopping</Button>
-            </Col>
-            <Col style={{justifyContent:'center', display:'flex'}}>
-                <Title> Shopping Cart</Title>
-            </Col>
-            <Col style={{justifyContent:'center', display:'flex'}}>
-                <Button variant='outline-success'>Checkout</Button>
-            </Col>
-        </Row>
-    </Container>
-    <Container>
-    <Row>
-        ITEMS
-    </Row>
-    </Container>
+        <div>
+        <h1>CART</h1>CART
+    </div>
     </div>
   )
 }
