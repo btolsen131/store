@@ -10,13 +10,13 @@ const Cart = ({match, location, history }) => {
 
     const { id } = useParams()
     const [searchParams ] = useSearchParams()
-    let qtyToAdd = searchParams.get('qty')
-    console.log(qtyToAdd)
+    let qtyToAdd = Number(searchParams.get('qty'))
     const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
     const {cartItems } = cart
-    console.log('cartItems', cartItems)
+    
+
     useEffect(() =>{
         if(id){
             dispatch(addToCart(id, qtyToAdd))
