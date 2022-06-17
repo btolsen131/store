@@ -19,7 +19,7 @@ const NavBar = () => {
         <NavLink to="/About">About</NavLink>
         <NavLink to="/Shop">Shop</NavLink>
         <NavLink to="/Cart"><BsCart3/>Cart</NavLink>
-        {/* <NavLink to='#'><BsPeople/>Login</NavLink> */}
+        <NavLink to='/Login'><BsPeople/>Login</NavLink> 
       </Nav>
     </Navbar.Collapse>
   </Container>
