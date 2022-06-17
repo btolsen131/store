@@ -24,7 +24,7 @@ class StoreItems(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Review(models.Model):
     product = models.ForeignKey(StoreItems, on_delete=models.SET_NULL, null=True)

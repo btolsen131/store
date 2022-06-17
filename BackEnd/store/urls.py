@@ -23,7 +23,11 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('storeAPI.urls')),
+    #each set of urls is broken out into individual folders
+    path('api/items/', include('storeAPI.urls.items_urls')),
+    path('api/users/', include('storeAPI.urls.user_urls')),
+    path('api/orders/', include('storeAPI.urls.order_urls')),
+    
 ]
 
 if settings.DEBUG:

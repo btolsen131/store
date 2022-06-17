@@ -1,12 +1,8 @@
-from django.shortcuts import render
-from django.http import JsonResponse
 from itsdangerous import Serializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-from sqlalchemy import false
-from .models import StoreItems
-from .serializers import StoreItemsSerializer, UserSerializer, UserSerializerWithToken
+from storeAPI.serializers import UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
@@ -14,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
 
+#api function to register user in database
 @api_view(["POST"])
 def registerUser(request):
     data = request.data
@@ -33,18 +30,7 @@ def registerUser(request):
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
         
-@api_view(["GET"])
-def getItems(request):
-    items = StoreItems.objects.all()
-    serializer = StoreItemsSerializer(items, many=True)
-    return Response(serializer.data)
-
-@api_view(["GET"])
-def getItem(request, pk):
-    product = StoreItems.objects.get(_id=pk)
-    serializer = StoreItemsSerializer(product, many=False)
-    return Response(serializer.data)
-
+#api function to retrieve user info, checks if user is logged in
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
@@ -52,6 +38,7 @@ def getUserProfile(request):
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
+#api func to return all users info
 @api_view(["GET"])
 @permission_classes([IsAdminUser])
 def getUsers(request):
@@ -59,6 +46,7 @@ def getUsers(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
+#login funcs using jwt token
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
    def validate(self, attrs):
        data = super().validate(attrs)
@@ -72,5 +60,3 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-

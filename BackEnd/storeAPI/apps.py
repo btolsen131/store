@@ -6,6 +6,6 @@ class StoreapiConfig(AppConfig):
     name = 'storeAPI'
 
 
-
+    #importing signals
     def ready(self):
         import storeAPI.signals

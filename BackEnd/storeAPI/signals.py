@@ -3,6 +3,7 @@ import imp
 from django.db.models.signals import pre_save
 from django.contrib.auth.models import User
 
+#signal to replace username with email prior to saving
 def updateUser(sender, instance, **kwargs):
     user = instance
     if user.email != '':
