@@ -54,8 +54,9 @@ export const register = (name, email, password) => async (dispatch) => {
                 'Content-type':'application/json'
             }
         }
+        // Posting registration info to backend
         const {data} = await axios.post('/api/users/register/',
-            {"name": name, "username":email, "password":password},
+            {"name": name, "email":email, "password":password},
             config
             )
 

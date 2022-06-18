@@ -14,8 +14,8 @@ import json
 @api_view(["POST"])
 def registerUser(request):
     data = request.data
-    print(data)
     
+    #try creating user in database or return error
     try:
         user = User.objects.create(
             first_name=data['name'],
@@ -23,8 +23,9 @@ def registerUser(request):
             email=data['email'],
             password=make_password(data['password'])
         )
+
         serializer = UserSerializerWithToken(user, many=False)
-        print(serializer.data)
+        
         
         return Response(serializer.data)
     except:
