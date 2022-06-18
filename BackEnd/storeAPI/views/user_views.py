@@ -8,13 +8,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
-
+import json
 
 #api function to register user in database
 @api_view(["POST"])
 def registerUser(request):
     data = request.data
-
+    print(data)
+    
     try:
         user = User.objects.create(
             first_name=data['name'],
@@ -23,7 +24,8 @@ def registerUser(request):
             password=make_password(data['password'])
         )
         serializer = UserSerializerWithToken(user, many=False)
-
+        print(serializer.data)
+        
         return Response(serializer.data)
     except:
         message = {'detail':'User with this email already exists'}
