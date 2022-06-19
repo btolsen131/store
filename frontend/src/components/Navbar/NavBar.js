@@ -33,7 +33,11 @@ const NavBar = () => {
         <NavLink to="/Cart"><BsCart3/>Cart</NavLink>
         {userInfo ? (
           <NavDropdown title={userInfo.name} id='username'>
-            <NavLink to='#'>Profile</NavLink>
+            
+            <LinkContainer to='/Profile'>
+              <NavDropdown.Item>Profile</NavDropdown.Item>
+            </LinkContainer>
+            
             <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
           </NavDropdown>
         ):(

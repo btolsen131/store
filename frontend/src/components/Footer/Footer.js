@@ -2,6 +2,7 @@ import React from "react"
 import { BsLinkedin, BsGithub, BsReverseLayoutTextWindowReverse } from "react-icons/bs";
 import {Container, Row, Col, ListGroup} from 'react-bootstrap'
 import {NavLink} from './FooterElements'
+import pathname from 'react-router-dom'
 
 const Footer = () =>{
     return (
@@ -13,16 +14,16 @@ const Footer = () =>{
                         <ListGroup variant='flush'>
                             <ListGroup.Item action ><NavLink to="/about">About</NavLink></ListGroup.Item>
                             <ListGroup.Item action ><NavLink to="#">Mission</NavLink></ListGroup.Item>
-                            <ListGroup.Item action ><NavLink to="https://btolsen131.github.io/portfolio_website/assets/other_htmls/resumePage.html">Hire Me</NavLink></ListGroup.Item>
+                            <ListGroup.Item action ><a href="https://btolsen131.github.io/portfolio_website/assets/other_htmls/resumePage.html" target="_blank">Hire Me</a></ListGroup.Item>
                         </ListGroup>
                 </Col>
                 
                 <Col md={3} sm={6}>
                     <h4 className="text-center text-decoration-underline">Social</h4>
                         <ListGroup variant='flush'>
-                            <ListGroup.Item action ><NavLink to="https://www.linkedin.com/in/briantolsen/"><BsLinkedin style={{marginRight:'2px'}} /> LinkedIn</NavLink></ListGroup.Item>
-                            <ListGroup.Item action ><NavLink to="https://github.com/btolsen131"><BsGithub style={{marginRight:'2px'}} /> Github</NavLink></ListGroup.Item>
-                            <ListGroup.Item action ><NavLink to="https://btolsen131.github.io/portfolio_website/"><BsReverseLayoutTextWindowReverse style={{marginRight:'2px'}} /> Portfolio</NavLink></ListGroup.Item>
+                            <ListGroup.Item action ><a href="https://www.linkedin.com/in/briantolsen/" target="_blank"><BsLinkedin style={{marginRight:'2px'}} /> LinkedIn</a></ListGroup.Item>
+                            <ListGroup.Item action ><a href="https://github.com/btolsen131" target='_blank'><BsGithub style={{marginRight:'2px'}} /> Github</a></ListGroup.Item>
+                            <ListGroup.Item action ><a href="https://btolsen131.github.io/portfolio_website/" target='_blank'><BsReverseLayoutTextWindowReverse style={{marginRight:'2px'}} /> Portfolio</a></ListGroup.Item>
                         </ListGroup>
                 </Col>
 

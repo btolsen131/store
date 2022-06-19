@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Cart from './pages/Cart'
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
 const BaseRouter = () => (
     
@@ -18,7 +19,7 @@ const BaseRouter = () => (
           <Route path="/About/" exact element={<About/>} />
           <Route path='/Login/' element={<Login/>} />
           <Route path='/Register/' element={<Register/>} />
-            
+            <Route path='/Profile/' element={<Profile/>} />
             
                 <Route path= "/Cart" element={<Cart/>} />
                 <Route path="/Cart/:id" element={<Cart />} />
