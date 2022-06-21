@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Shipping from "./pages/Shipping";
 import Payment from "./pages/Payment";
+import Placeorder from "./pages/Placeorder";
 
 
 const BaseRouter = () => (
@@ -25,6 +26,7 @@ const BaseRouter = () => (
         <Route path='/Profile/' element={<Profile/>} />
         <Route path='/Shipping/' element={<Shipping/>} />
         <Route path='/Payment/' element={<Payment/>} />
+        <Route path='/Placeorder/' element={<Placeorder/>}/>
         <Route path= "/Cart" element={<Cart/>} />
         <Route path="/Cart/:id" element={<Cart />} />
                 

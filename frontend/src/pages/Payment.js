@@ -14,7 +14,7 @@ const Payment = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [paymentMethod, setPaymentMethod] = useState('paypal')
+    const [paymentMethod, setPaymentMethod] = useState('Paypal')
 
 
     if(!shippingAddress.address){
@@ -35,7 +35,7 @@ const Payment = () => {
                 Select Method
             </Form.Label>
             <Col>
-                <Form.Check id='paypal' name='paymentMethod' 
+                <Form.Check id='Paypal' name='paymentMethod' 
                 checked type='radio' label='Paypal or Credit Card' 
                 onChange={(e) => setPaymentMethod(e.target.value)}>
 
