@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Row, ListGroup, Image, Form, Card } from 'react-bootstrap';
 import  Message  from '../components/Message'
@@ -15,7 +15,9 @@ const Cart = ({match, location, history }) => {
 
     const cart = useSelector(state => state.cart)
     const {cartItems } = cart
-    
+    const navigate = useNavigate()
+    const userLogin = useSelector(state => state.userLogin )
+    const {userInfo} = userLogin
 
     useEffect(() =>{
         if(id){
@@ -28,7 +30,11 @@ const Cart = ({match, location, history }) => {
     }
 
     const checkoutHandler = () => {
-        window.history.push('/login?redirect=shipping')
+       if(!userInfo){
+        navigate('/Login')
+       } else {
+        navigate('/Shipping')
+       }
     }
 
   return (

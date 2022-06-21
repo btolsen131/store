@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import {Form, Button, Row, Col} from "react-bootstrap"
 import {useDispatch, useSelector} from "react-redux"
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {getUserData, updateUserProfile} from '../actions/userActions'
-import FormContainer from '../components/formContainer';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
-const Profile = ({history}) => {
+const Profile = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -40,7 +39,7 @@ const Profile = ({history}) => {
                 setEmail(user.email)
             }
         }
-      },[dispatch, userInfo, navigate, success])
+      },[dispatch, userInfo, navigate, success, user])
     
       const submitHandler = (e) => {
         e.preventDefault()
