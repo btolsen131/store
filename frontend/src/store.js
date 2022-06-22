@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { productDetailsReducer, productListReducer } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
 import { userUpdateProfileReducer, userLoginReducer, userRegisterReducer, userDetailsReducer } from './reducers/userReducers';
+import { orderCreateReducer } from './reducers/orderReducers'
 
 const reducer = combineReducers({
     itemList: productListReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     userRegister:userRegisterReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile:userUpdateProfileReducer,
+    orderCreate:orderCreateReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?
@@ -35,7 +37,7 @@ const initialState = {
 
 const middleware = [thunk]
 
-const store = createStore(reducer, initialState, 
+const store = createStore(reducer, initialState,
     composeWithDevTools(applyMiddleware(...middleware)))
 
 export default store

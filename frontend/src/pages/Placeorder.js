@@ -1,27 +1,51 @@
-import React, {useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {Button, Row, Col, ListGroup, Image, Card, ListGroupItem} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Message from '../components/Message'
-
+import { createOrder } from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 const Placeorder = () => {
-    
+
+    const orderCreate = useSelector(state => state.orderCreate)
+    const { order, error, success } = orderCreate
+
     const cart = useSelector(state => state.cart)
-    const { shippingAddress } = cart
-    
+
     const dispatch = useDispatch()
-    
+    const navigate = useNavigate()
+
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice  > 100 ? 0 : 10).toFixed(2)
     cart.taxPrice = (cart.itemsPrice * 0.07).toFixed(2)
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
+    if (!cart.paymentMethod){
+        navigate('/Payment')
+    }
+    useEffect(()=>{
+        if(success){
+            navigate(`/Order/${order.id}`)
+            dispatch({ type: ORDER_CREATE_RESET })
+        }
+    }, [success])
+
     const placeOrder = () => {
         console.log('Order Placed')
+        dispatch(createOrder({
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice,
+        }))
+
 
     }
-  
+
     return (
     <div>
         <Row>
@@ -33,7 +57,7 @@ const Placeorder = () => {
                             {cart.shippingAddress.address}, {cart.shippingAddress.city}
                             {'   '}
                             {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
-                
+
                         </p>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -45,8 +69,8 @@ const Placeorder = () => {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <h2>Order Items</h2>
-                        {cart.cartItems.length === 0 
-                        ? <Message> Your cart is empty</Message> 
+                        {cart.cartItems.length === 0
+                        ? <Message> Your cart is empty</Message>
                         :(
                             <ListGroup variant='flush'>
                                 {cart.cartItems.map((item, index) => (
@@ -60,7 +84,7 @@ const Placeorder = () => {
                                             </Col>
                                             <Col md={4}>
                                                 {item.qty} X ${item.price} = ${(item.qty * item.price).toFixed(2)}
-                                            
+
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>
@@ -101,9 +125,14 @@ const Placeorder = () => {
                                 <Col>${cart.totalPrice}</Col>
                             </Row>
                         </ListGroupItem>
+
                         <ListGroupItem>
-                            <Button type='button' className='btn-block' 
-                            disabled={cart.cartItems === 0} onClick={placeOrder}> 
+                            {error && <Message variant='danger'>{error}</Message>}
+                        </ListGroupItem>
+
+                        <ListGroupItem>
+                            <Button type='button' className='btn-block'
+                            disabled={cart.cartItems === 0} onClick={placeOrder}>
                             Place Order
                             </Button>
                         </ListGroupItem>

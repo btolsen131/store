@@ -14,7 +14,7 @@ from rest_framework import status
 def addOrderItems(request):
     user = request.user
     data = request.data
-    
+
     orderItems = data['orderItems']
 
     if orderItems and len(orderItems) == 0:
@@ -23,7 +23,7 @@ def addOrderItems(request):
         #creating order
         order = Order.objects.create(
             user=user,
-            paymenthMethod=data['paymentMethod'],
+            paymentMethod=data['paymentMethod'],
             taxPrice=data['taxPrice'],
             shippingPrice=data['shippingPrice'],
             totalPrice = data['totalPrice']
