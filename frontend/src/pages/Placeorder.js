@@ -29,7 +29,7 @@ const Placeorder = () => {
             navigate(`/Order/${order._id}`)
             dispatch({ type: ORDER_CREATE_RESET })
         }
-    }, [success])
+    }, [success, dispatch, navigate])
 
     const placeOrder = () => {
         console.log('Order Placed')

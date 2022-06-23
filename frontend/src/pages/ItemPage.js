@@ -1,6 +1,6 @@
-import React, {useState, UseEffect, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useParams, Link, useNavigate } from 'react-router-dom'
-import {Row, Col, Image, ListGroup, Button, Card, Form, ListGroupItem } from 'react-bootstrap'
+import {Row, Col, Image, ListGroup, Button, Card, Form} from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { useDispatch, useSelector} from 'react-redux'
 import { listProductDetails } from '../actions/productActions'
@@ -11,13 +11,14 @@ const ItemPage = ({ match}) => {
   const [qty, setQty] = useState(1)
 
   const { id } = useParams()
+
   const dispatch = useDispatch()
   const itemDetails = useSelector(state => state.itemDetails)
   const {error, loading, item } = itemDetails
-  
+
   useEffect(() =>{
     dispatch(listProductDetails(id))
- 
+
   },[dispatch, id])
 
   let history = useNavigate()
@@ -25,7 +26,7 @@ const ItemPage = ({ match}) => {
   const addToCartHandler = () => {
     history(`/Cart/${id}?qty=${qty}`)
   }
- 
+
 
   return (
     <div>

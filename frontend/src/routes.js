@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import Shipping from "./pages/Shipping";
 import Payment from "./pages/Payment";
 import Placeorder from "./pages/Placeorder";
+import Order from "./pages/Order";
 
 
 const BaseRouter = () => (
@@ -29,11 +30,12 @@ const BaseRouter = () => (
         <Route path='/Placeorder/' element={<Placeorder/>}/>
         <Route path= "/Cart" element={<Cart/>} />
         <Route path="/Cart/:id" element={<Cart />} />
-                
-            
-          
+        <Route path='/Order/:id' element={<Order/>} />
+
+
+
      </Routes>
-    
+
 )
             ;
 
