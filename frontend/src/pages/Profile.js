@@ -122,7 +122,7 @@ const Profile = () => {
                       <td>{order.createdAt.substring(0,10)}</td>
                       <td>${order.totalPrice}</td>
                       <td>{order.isPaid ? order.paidAt.substring(0,10) : <BsXLg/>}</td>
-                      <td>{order.isDelivered ? order.isDelivered.substring(0,10) : <BsXLg/>}</td>
+                      <td>{order.isDelivered ? order.deliveredAt.substring(0,10) : <BsXLg/>}</td>
 
                       <td>
                           <LinkContainer to={`/order/${order._id}`}>
