@@ -14,7 +14,7 @@ const Login = ({location, history}) => {
 
   const [search] = useSearchParams()
   const searchRedirect = search.get('redirect')
-  
+
   const redirect = searchRedirect ? location.search.split('=')[1] : '/'
 
   const userLogin = useSelector(state => state.userLogin )
@@ -46,7 +46,7 @@ const Login = ({location, history}) => {
           <Form.Control type='email' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
         </Form.Group>
         <Form.Group controlId="password">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
         </Form.Group>
         <Button type="submit" variant='success' className="mt-2">Sign In</Button>
